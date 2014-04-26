@@ -15,6 +15,10 @@ function influence_plus_init(){
 	if( get_option('template') == 'influence' && function_exists( 'siteorigin_setting' ) ) {
 		include plugin_dir_path(__FILE__) . '/main.php';
 		include plugin_dir_path(__FILE__) . '/customizer/customizer.php';
+
+		// Add the updates plugin
+		include plugin_dir_path(__FILE__) . '/wp-updates-plugin.php';
+		new WPUpdatesPluginUpdater_467( 'http://wp-updates.com/api/2/plugin', plugin_basename(__FILE__) );
 	}
 
 }
