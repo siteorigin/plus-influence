@@ -1,5 +1,10 @@
 <?php
 
+// Do this to remove notifications
+if( !defined('SITEORIGIN_IS_PREMIUM') ) define('SITEORIGIN_IS_PREMIUM', true);
+
+include plugin_dir_path(__FILE__) . '/customizer.php';
+
 /**
  * Add the missing settings
  */
@@ -30,12 +35,26 @@ function influence_plus_add_retina_logo($attr){
 }
 add_filter('influence_logo_image_attributes', 'influence_plus_add_retina_logo');
 
+/**
+ * Remove attribution
+ *
+ * @param $credits
+ *
+ * @return string
+ */
 function influence_plus_filter_attribution($credits){
 	if( !siteorigin_setting('general_attribution') ) return '';
 	else return $credits;
 }
 add_filter('influence_credits_siteorigin', 'influence_plus_filter_attribution');
 
+/**
+ * Display the shortcode slider
+ *
+ * @param $code
+ *
+ * @return string
+ */
 function influence_plus_display_slider($code){
 	if( !is_front_page() || siteorigin_setting('home_displays') != 'shortcode' || !siteorigin_setting('home_slider_shortcode') ) return $code;
 
