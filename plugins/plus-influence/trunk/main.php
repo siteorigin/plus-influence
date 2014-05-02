@@ -9,9 +9,8 @@ include plugin_dir_path(__FILE__) . '/customizer.php';
  * Add the missing settings
  */
 function influence_plus_theme_settings(){
-	siteorigin_settings_add_field('general', 'retina_logo', 'media');
+	siteorigin_settings_add_field('logo', 'retina_logo', 'media');
 	siteorigin_settings_add_field('general', 'attribution', 'checkbox');
-
 	siteorigin_settings_add_field('home', 'slider_shortcode', 'text');
 }
 add_action('admin_init', 'influence_plus_theme_settings', 15);
@@ -24,7 +23,7 @@ add_action('admin_init', 'influence_plus_theme_settings', 15);
  * @return mixed
  */
 function influence_plus_add_retina_logo($attr){
-	$logo = siteorigin_setting('general_retina_logo');
+	$logo = siteorigin_setting('logo_retina_logo');
 
 	if( !empty($logo) ) {
 		$image = wp_get_attachment_image_src($logo, 'full');

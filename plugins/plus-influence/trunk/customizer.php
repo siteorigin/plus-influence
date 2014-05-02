@@ -7,9 +7,14 @@ function influence_plus_customizer_init(){
 			'priority' => 30,
 		),
 
-		'influence_general' => array(
-			'title' => __('General', 'plus-influence'),
+		'influence_menu' => array(
+			'title' => __('Menu Bar', 'plus-influence'),
 			'priority' => 40,
+		),
+
+		'influence_page' => array(
+			'title' => __('Page', 'plus-influence'),
+			'priority' => 45,
 		),
 
 		'influence_sidebar' => array(
@@ -42,6 +47,60 @@ function influence_plus_customizer_init(){
 			),
 		),
 
+		'influence_menu' => array(
+
+			'background' => array(
+				'type' => 'color',
+				'title' => __('Background', 'influence'),
+				'default' => '#FFFFFF',
+				'callback' => 'influence_plus_menu_bar_color',
+			),
+
+			'link' => array(
+				'type' => 'color',
+				'title' => __('Menu Link Color', 'influence'),
+				'default' => '#333230',
+				'selector' => '.main-navigation a.main-menu-button',
+				'property' => 'color',
+			),
+
+			'site_title' => array(
+				'type' => 'color',
+				'title' => __('Site Title Color', 'influence'),
+				'default' => '#444444',
+				'selector' => '.site-header .site-title',
+				'property' => 'color',
+			),
+
+			'site_description' => array(
+				'type' => 'color',
+				'title' => __('Site Description Color', 'influence'),
+				'default' => '#333333',
+				'selector' => '.site-header .site-description',
+				'property' => 'color',
+			),
+		),
+
+		'influence_page' => array(
+
+			'background' => array(
+				'type' => 'color',
+				'title' => __('Background', 'influence'),
+				'default' => '#FBFBFB',
+				'selector' => 'article.entry',
+				'property' => 'background-color',
+			),
+
+			'background_image' => array(
+				'type' => 'image',
+				'title' => __('Background Image', 'influence'),
+				'default' => false,
+				'selector' => 'article.entry',
+				'property' => 'background-image',
+			),
+
+		),
+
 		'influence_sidebar' => array(
 
 			'background' => array(
@@ -62,7 +121,7 @@ function influence_plus_customizer_init(){
 
 			'heading_color' => array(
 				'type' => 'color',
-				'title' => __('Heading Color', 'influence'),
+				'title' => __('Widget Heading Color', 'influence'),
 				'default' => '#ebe9e5',
 				'selector' => '#main-menu .widgets aside.widget .widget-title',
 				'property' => 'color',
@@ -71,7 +130,7 @@ function influence_plus_customizer_init(){
 			'heading_size' => array(
 				'type' => 'measurement',
 				'title' => __('Widget Heading Size', 'influence'),
-				'default' => 1.4,
+				'default' => 1.25,
 				'unit' => 'em',
 				'selector' => '#main-menu .widgets aside.widget .widget-title',
 				'property' => 'font-size',
@@ -160,6 +219,22 @@ function influence_customizer_register($wp_customize){
 	$siteorigin_influence_customizer->customize_register($wp_customize);
 }
 add_action( 'customize_register', 'influence_customizer_register', 15 );
+
+/**
+ * @param SiteOrigin_Customizer_CSS_Builder $builder
+ * @param mixed $val
+ * @param array $setting
+ */
+function influence_plus_menu_bar_color($builder, $val, $setting){
+	if(!empty($val) && $val != '#FFFFFF') {
+		$rgb = $builder->hex2rgb($val);
+
+		$color = 'rgba('.implode(',', $rgb).', 0.86)';
+		$builder->add_raw_css('.site-header{ background-color: '.esc_html($val).'; background-color: '.$color.'}');
+	}
+
+	return $builder;
+}
 
 /**
  * Display the styles
