@@ -9,9 +9,9 @@ include plugin_dir_path(__FILE__) . '/customizer.php';
  * Add the missing settings
  */
 function influence_plus_theme_settings(){
-	siteorigin_settings_add_field('logo', 'retina_logo', 'media');
-	siteorigin_settings_add_field('general', 'attribution', 'checkbox');
-	siteorigin_settings_add_field('home', 'slider_shortcode', 'text');
+	siteorigin_settings_add_field( 'logo', 'retina_logo', 'media' );
+	siteorigin_settings_add_field( 'general', 'attribution', 'checkbox' );
+	siteorigin_settings_add_field( 'home', 'slider_shortcode', 'text' );
 }
 add_action('admin_init', 'influence_plus_theme_settings', 15);
 

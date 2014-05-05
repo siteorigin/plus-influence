@@ -2,6 +2,12 @@
 
 function influence_plus_customizer_init(){
 	$sections = apply_filters( 'influence_plus_customizer_sections', array(
+
+		'influence_general' => array(
+			'title' => __('General', 'plus-influence'),
+			'priority' => 25,
+		),
+
 		'influence_fonts' => array(
 			'title' => __('Fonts', 'plus-influence'),
 			'priority' => 30,
@@ -30,6 +36,24 @@ function influence_plus_customizer_init(){
 	) );
 
 	$settings = apply_filters( 'influence_plus_customizer_settings', array(
+		'influence_general' => array(
+
+			'site_width' => array(
+				'type' => 'measurement',
+				'title' => __('Site Max Width', 'plus-influence'),
+				'callback' => 'influence_plus_change_site_width',
+				'default' => 1000,
+			),
+
+			'site_width_sidebar' => array(
+				'type' => 'measurement',
+				'title' => __('Site Max Width With Sidebar', 'plus-influence'),
+				'callback' => 'influence_plus_change_site_width',
+				'default' => 1200,
+			),
+
+		),
+
 		'influence_fonts' => array(
 
 			'body_font' => array(
@@ -224,6 +248,8 @@ add_action( 'customize_register', 'influence_customizer_register', 15 );
  * @param SiteOrigin_Customizer_CSS_Builder $builder
  * @param mixed $val
  * @param array $setting
+ *
+ * @return \SiteOrigin_Customizer_CSS_Builder
  */
 function influence_plus_menu_bar_color($builder, $val, $setting){
 	if(!empty($val) && $val != '#FFFFFF') {
@@ -234,6 +260,25 @@ function influence_plus_menu_bar_color($builder, $val, $setting){
 	}
 
 	return $builder;
+}
+
+function influence_plus_change_site_width( $builder, $val, $setting ) {
+
+	if( empty($val) ) return;
+
+	switch ($setting['id']) {
+		case 'influence_general_site_width' :
+			if( $val != 1000 ) {
+				$builder->add_raw_css('#main,.container{max-width:'.intval($val).'px}');
+			}
+			break;
+
+		case 'influence_general_site_width_sidebar' :
+			if( $val != 1200 ) {
+				$builder->add_raw_css('body.has-main-sidebar #main,body.has-main-sidebar .container{max-width:'.intval($val).'px}');
+			}
+			break;
+	}
 }
 
 /**
