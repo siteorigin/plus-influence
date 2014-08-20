@@ -1,5 +1,4 @@
 <?php
-
 /*
 Plugin Name: Influence Plus
 Description: Extensions and enhancements to the Influence WordPress theme.
