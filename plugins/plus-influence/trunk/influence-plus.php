@@ -12,7 +12,8 @@ License URI: http://www.gnu.org/licenses/gpl.html
 
 function influence_plus_init(){
 
-	if( get_option('template') == 'influence' && function_exists( 'siteorigin_setting' ) ) {
+	// Check that we're using Influence and that it's definitely the SiteOrigin version
+	if( get_option('template') == 'influence' && defined( 'SITEORIGIN_THEME_VERSION' ) ) {
 		include plugin_dir_path(__FILE__) . '/customizer/customizer.php';
 		include plugin_dir_path(__FILE__) . '/main.php';
 

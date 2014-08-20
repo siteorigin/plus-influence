@@ -4,6 +4,7 @@
 if( !defined('SITEORIGIN_IS_PREMIUM') ) define('SITEORIGIN_IS_PREMIUM', true);
 
 include plugin_dir_path(__FILE__) . '/customizer.php';
+include plugin_dir_path(__FILE__) . '/slider.php';
 
 /**
  * Add the missing settings
@@ -46,18 +47,3 @@ function influence_plus_filter_attribution($credits){
 	else return $credits;
 }
 add_filter('influence_credits_siteorigin', 'influence_plus_filter_attribution');
-
-/**
- * Display the shortcode slider
- *
- * @param $code
- *
- * @return string
- */
-function influence_plus_display_slider($code){
-	if( !is_front_page() || siteorigin_setting('home_displays') != 'shortcode' || !siteorigin_setting('home_slider_shortcode') ) return $code;
-
-	$code = '<div id="under-masthead-slider" ' . ( siteorigin_setting('home_slider_margin') ? '' : 'class="remove-bottom-margin"' ) . '>' . do_shortcode( siteorigin_setting('home_slider_shortcode') ) . '</div>';
-	return $code;
-}
-add_filter('influence_after_header', 'influence_plus_display_slider');
