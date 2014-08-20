@@ -37,9 +37,6 @@ add_action('add_meta_boxes', 'influence_plus_add_page_meta_boxes');
  * @param $args
  */
 function influence_plus_display_page_slider_meta_box($post, $args){
-	$shortcode = get_post_meta($post->ID, 'influence_slider_shortcode', true);
-	$move = get_post_meta($post->ID, 'influence_slider_move_pb_row', true);
-
 	$slider = get_post_meta($post->ID, 'influence_page_slider', true);
 	$slider = wp_parse_args(
 		!empty($slider) ? $slider : array(),
@@ -55,7 +52,7 @@ function influence_plus_display_page_slider_meta_box($post, $args){
 		<label><?php _e('Slider Shortcode', 'influence-plus') ?></label>
 		<input type="text" name="influence_page_slider[shortcode]" class="widefat" value="<?php echo esc_attr($slider['shortcode']) ?>" />
 	</p>
-	<p>Or</p>
+	<p><?php _e('Or', 'influence-plus') ?></p>
 	<p>
 		<label>
 			<input type="checkbox" name="influence_page_slider[move]" class="widefat" <?php checked($slider['move']) ?> />
@@ -136,6 +133,14 @@ function influence_plus_display_page_slider($code){
 }
 add_filter('influence_after_header', 'influence_plus_display_page_slider');
 
+/**
+ * Filter the Page Builder data to remove the first row of widgets.
+ *
+ * @param $data
+ * @param $post_id
+ *
+ * @return mixed
+ */
 function influence_plus_replace_panels_data($data, $post_id){
 
 	if( is_page() && get_the_ID() == $post_id ) {
